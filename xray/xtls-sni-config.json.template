@@ -4,14 +4,21 @@
       "loglevel": "info"
     },
     "inbounds": [
+      {
+        "listen": "127.0.0.1",
+        "port": 10085,
+        "protocol": "dokodemo-door",
+        "settings": {
+          "address": "127.0.0.1"
+        },
+        "tag": "api"
+      },
       //{
       //   "port": 443,
       //   "protocol": "vless",
       //   "settings": {
       //     "clients": [
-      //       {
-      //       "id": "defaultuserguidsecret"
-      //       }
+      //       {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
       //     ],
       //     "decryption": "none"
       //   },   
@@ -43,46 +50,43 @@
         "protocol": "vless",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret",
-              "flow": "xtls-rprx-direct" //To enable XTLS Direct, this configuration must be added; otherwise, delete it. V2Ray has deleted the XTLS application since version v4.33.0. If you want to use this application, it is recommended to choose Xray.
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com","flow": "xtls-rprx-direct"}
           ],
           "decryption": "none",
           "fallbacks": [
             {
               // if the path was `/vlessws`, pass it to vless-ws listener
-              "path": "/defaultusersecret/vlessws",
+              "path": "/BASE_PROXY_PATH/vlessws",
               "dest": "@vless-ws",
               "xver": 2 //Enable the sending of the PROXY protocol, and send the real source IP and port to the following vmess+ws application. 1 or 2 indicates the PROXY protocol version. Consistent with the following, it is recommended to configure 2.
             },
             {
               // if the path was `/vmessws`, pass it to vmess-ws listener
-              "path": "/defaultusersecret/vmessws",
+              "path": "/BASE_PROXY_PATH/vmessws",
               "dest": "@vmess-ws",
               "xver": 2
             },
             {
               // if the path was `/trojanws`, pass it to trojan-ws listener
-              "path": "/defaultusersecret/trojanws",
+              "path": "/BASE_PROXY_PATH/trojanws",
               "dest": "@trojan-ws",
               "xver": 2
             },
             {
               // if the path was `/vltc`, pass it to vless-tcp listener
-              "path": "/defaultusersecret/vltc",
+              "path": "/BASE_PROXY_PATH/vltc",
               "dest": "@vless-tcp",
               "xver": 2
             },
             {
               // if the path was `/vmtc`, pass it to vmess-tcp listener
-              "path": "/defaultusersecret/vmtc",
+              "path": "/BASE_PROXY_PATH/vmtc",
               "dest": "@vmess-tcp",
               "xver": 2
             },
             {
               // if the path was `/trtc`, pass it to trojan-tcp-path listener
-              "path": "/defaultusersecret/trtc",
+              "path": "/BASE_PROXY_PATH/trtc",
               "dest": "@trojan-tcp-path",
               "xver": 2
             },
@@ -144,9 +148,7 @@
         "protocol": "vless",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret" //Change to your own UUID
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "email": "defaultuserguidsecret@hiddify.com"}
           ],
           "decryption": "none"
         },
@@ -155,7 +157,7 @@
           "security": "none",
           "wsSettings": {
             "acceptProxyProtocol": true,
-            "path": "/defaultusersecret/vlessws"
+            "path": "/BASE_PROXY_PATH/vlessws"
           }
         },
         "sniffing": {
@@ -171,10 +173,7 @@
         "protocol": "vmess",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret",
-              "level": 0
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
           ]
         },
         "streamSettings": {
@@ -182,7 +181,7 @@
           "security": "none",
           "wsSettings": {
             "acceptProxyProtocol": true,
-            "path": "/defaultusersecret/vmessws"
+            "path": "/BASE_PROXY_PATH/vmessws"
           }
         },
         "sniffing": {
@@ -198,9 +197,7 @@
         "protocol": "trojan",
         "settings": {
           "clients": [
-            {
-              "password": "defaultuserguidsecret" //Change to your own password
-            }
+            {"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
           ]
         },
         "streamSettings": {
@@ -208,7 +205,7 @@
           "security": "none",
           "wsSettings": {
             "acceptProxyProtocol": true, //Enable PROXY protocol reception, receive the real source IP and port
-            "path": "/defaultusersecret/trojanws" //Change to your own path
+            "path": "/BASE_PROXY_PATH/trojanws" //Change to your own path
           }
         },
         "sniffing": {
@@ -227,9 +224,7 @@
         "protocol": "trojan",
         "settings": {
           "clients": [
-            {
-              "password": "defaultuserguidsecret" //Change to your own password
-            }
+            {"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
           ],
           "fallbacks": [
             {
@@ -259,9 +254,7 @@
         "protocol": "trojan",
         "settings": {
           "clients": [
-            {
-              "password": "defaultuserguidsecret" //Change to your own password
-            }
+            {"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
           ]
         },
         "streamSettings": {
@@ -273,7 +266,7 @@
               "type": "http",
               "request": {
                 "path": [
-                  "/defaultusersecret/trtc"
+                  "/BASE_PROXY_PATH/trtc"
                 ]
               }
             }
@@ -292,9 +285,7 @@
         "protocol": "vless",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret"
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
           ],
           "decryption": "none"
         },
@@ -307,7 +298,7 @@
               "type": "http",
               "request": {
                 "path": [
-                  "/defaultusersecret/vltc"
+                  "/BASE_PROXY_PATH/vltc"
                 ]
               }
             }
@@ -326,10 +317,7 @@
         "protocol": "vmess",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret",
-              "level": 0
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
           ]
         },
         "streamSettings": {
@@ -341,7 +329,7 @@
               "type": "http",
               "request": {
                 "path": [
-                  "/defaultusersecret/vmtc"
+                  "/BASE_PROXY_PATH/vmtc"
                 ] //,
                 // "headers": {
                 //   "Host": ["www.varzesh3.com"]
@@ -368,16 +356,14 @@
         "protocol": "trojan",
         "settings": {
           "clients": [
-            {
-              "password": "defaultuserguidsecret"
-            }
+            {"password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
           ]
         },
         "streamSettings": {
           "network": "grpc",
           "security": "none",
           "grpcSettings": {
-            "serviceName": "defaultusersecret-trgrpc"
+            "serviceName": "BASE_PROXY_PATH-trgrpc"
           }
         }
       },
@@ -388,9 +374,7 @@
         "protocol": "vless",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret"
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
           ],
           "decryption": "none"
         },
@@ -398,7 +382,7 @@
           "network": "grpc",
           "security": "none",
           "grpcSettings": {
-            "serviceName": "defaultusersecret-vlgrpc"
+            "serviceName": "BASE_PROXY_PATH-vlgrpc"
           }
         }
       },
@@ -409,17 +393,14 @@
         "protocol": "vmess",
         "settings": {
           "clients": [
-            {
-              "id": "defaultuserguidsecret", //Change to your own UUID
-              "level": 0
-            }
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com", "level": 0}
           ]
         },
         "streamSettings": {
           "network": "grpc",
           "security": "none",
           "grpcSettings": {
-            "serviceName": "defaultusersecret-vmgrpc"
+            "serviceName": "BASE_PROXY_PATH-vmgrpc"
           }
         }
       },
@@ -429,13 +410,13 @@
         "protocol": "shadowsocks",
         "settings": {
           "method": "chacha20-ietf-poly1305",
-          "password": "defaultuserguidsecret" //Change to your own password
+          "password": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com" //Change to your own password
         },
         "streamSettings": {
           "network": "grpc",
           "security": "none",
           "grpcSettings": {
-            "serviceName": "defaultusersecret-ssgrpc" //Change to your own gRPC service name, similar to Path in HTTP/2.
+            "serviceName": "BASE_PROXY_PATH-ssgrpc" //Change to your own gRPC service name, similar to Path in HTTP/2.
           }
         },
         "sniffing": {
@@ -445,53 +426,51 @@
             "tls"
           ]
         }
-      } //,
-      // {
-      //   "port": 80, // this is http entrypoint
-      //   "protocol": "vless",
-      //   "settings": {
-      //     "clients": [
-      //       {
-      //         "id": "defaultuserguidsecret"
-      //       }
-      //     ],
-      //     "fallbacks": [
-      //       {
-      //         "path": "/defaultusersecret/vlessws",
-      //         "dest": "@vless-ws",
-      //         "xver": 2
-      //       },
-      //       {
-      //         "path": "/defaultusersecret/vmessws",
-      //         "dest": "@vmess-ws", // the same vmess-ws used in 443 TLS entrypint is used here as well
-      //         "xver": 2
-      //       },
-      //       {
-      //         "path": "/defaultusersecret/vltc",
-      //         "dest": "@vless-tcp",
-      //         "xver": 2
-      //       },
-      //       {
-      //         "path": "/defaultusersecret/vmtc",
-      //         "dest": "@vmess-tcp",
-      //         "xver": 2
-      //       },
-      //       {
-      //         "dest": "501", // defaults to Nginx HTTP1.1 listener
-      //         "xver": 2
-      //       }
-      //     ],
-      //     "decryption": "none"
-      //   },
-      //   "streamSettings": {
-      //     "network": "tcp",
-      //     "security": "none"
-      //   },
-      //   "sniffing": {
-      //     "enabled": true,
-      //     "destOverride": ["http", "tls"]
-      //   }
-      // }
+      },
+      {
+        "port": 80, // this is http entrypoint
+        "protocol": "vless",
+        "settings": {
+          "clients": [
+            {"id": "defaultuserguidsecret", "email": "defaultuserguidsecret@hiddify.com"}
+          ],
+          "fallbacks": [
+            {
+              "path": "/BASE_PROXY_PATH/vlessws",
+              "dest": "@vless-ws",
+              "xver": 2
+            },
+            {
+              "path": "/BASE_PROXY_PATH/vmessws",
+              "dest": "@vmess-ws", // the same vmess-ws used in 443 TLS entrypint is used here as well
+              "xver": 2
+            },
+            {
+              "path": "/BASE_PROXY_PATH/vltc",
+              "dest": "@vless-tcp",
+              "xver": 2
+            },
+            {
+              "path": "/BASE_PROXY_PATH/vmtc",
+              "dest": "@vmess-tcp",
+              "xver": 2
+            },
+            {
+              "dest": "501", // defaults to Nginx HTTP1.1 listener
+              "xver": 2
+            }
+          ],
+          "decryption": "none"
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "none"
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": ["http", "tls"]
+        }
+      }
     ],
     "outbounds": [
       {
@@ -601,6 +580,13 @@
             "protocol": [
               "bittorrent"
             ]
+          },
+          {
+            "inboundTag": [
+              "api"
+            ],
+            "outboundTag": "api",
+            "type": "field"
           }
         ]
       }

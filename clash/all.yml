@@ -18,7 +18,7 @@ proxies:
       - h2
     network: ws
     ws-opts:
-      path: /usersecret/trojanws
+      path: /BASE_PATH/trojanws
 
   - name: vmess_ws_proxyproviderip_vmess_59999
     type: vmess
@@ -33,7 +33,7 @@ proxies:
     servername: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/vmessws
+      path: /BASE_PATH/vmessws
   - name: CDN trojan_ws_proxyproviderip_trojan_74488
     type: trojan
     password: userguidsecret
@@ -46,7 +46,7 @@ proxies:
       - h2
     network: ws
     ws-opts:
-      path: /usersecret/trojanws
+      path: /BASE_PATH/trojanws
 
   - name: CDN vmess_ws_proxyproviderip_vmess_59999
     type: vmess
@@ -61,7 +61,7 @@ proxies:
     servername: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/vmessws
+      path: /BASE_PATH/vmessws
   - name: trojan-grpc_proxyproviderip_trojan_49303
     type: trojan
     password: userguidsecret
@@ -74,7 +74,7 @@ proxies:
       - h2
     network: grpc
     grpc-opts:
-      grpc-service-name: usersecret-trgrpc
+      grpc-service-name: BASE_PATH-trgrpc
   - name: vmess_grpc_proxyproviderip_vmess_59432
     type: vmess
     server: serverip
@@ -88,7 +88,7 @@ proxies:
     servername: proxyproviderip
     network: grpc
     grpc-opts:
-      grpc-service-name: usersecret-vmgrpc
+      grpc-service-name: BASE_PATH-vmgrpc
   - name: trojan+tls_proxyproviderip_trojan_58054
     type: trojan
     password: userguidsecret
@@ -113,7 +113,7 @@ proxies:
     network: http
     http-opts:
       path:
-        - /usersecret/vmtc
+        - /BASE_PATH/vmtc
   # - name: trojan+tls+http1.1_proxyproviderip_trojan_78009
   #   type: trojan
   #   password: userguidsecret
@@ -138,14 +138,14 @@ proxies:
     network: http
     http-opts:
       path:
-        - /usersecret/vmtc
+        - /BASE_PATH/vmtc
 
 
 
   - name: old_ssfaketls_proxyproviderip_ss_85981
     type: ss
     cipher: chacha20-ietf-poly1305
-    password: usersecret
+    password: userdefsecret
     server: serverip
     port: 443
     udp_over_tcp: true
@@ -165,11 +165,12 @@ proxies:
     skip-cert-verify: true
     network: ws
     ws-opts:
-      path: /usersecret/trojan/
+      path: /BASE_PATH/trojan/
+
   - name: old_v2ray_proxyproviderip_ss_94133
     type: ss
     cipher: chacha20-ietf-poly1305
-    password: usersecret
+    password: userdefsecret
     server: serverip
     port: 443
     udp_over_tcp: true
@@ -179,13 +180,13 @@ proxies:
       tls: true
       skip-cert-verify: true
       host: proxyproviderip
-      path: /usersecret/v2ray/
-      
+      path: /BASE_PATH/v2ray/
+
   - name: old_vmess_proxyproviderip_vmess_18831
     type: vmess
     server: serverip
     port: 443
-    uuid: userguidsecret
+    uuid: userdefguidsecret
     alterId: 0
     cipher: chacha20-poly1305
     udp: true
@@ -194,7 +195,7 @@ proxies:
     servername: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/vmess/
+      path: /BASE_PATH/vmess/
 
   - name: CDN old_trojan-go_proxyproviderip_trojan-go_86355
     type: trojan
@@ -206,11 +207,11 @@ proxies:
     skip-cert-verify: true
     network: ws
     ws-opts:
-      path: /usersecret/trojan/
+      path: /BASE_PATH/trojan/
   - name: CDN old_v2ray_proxyproviderip_ss_94133
     type: ss
     cipher: chacha20-ietf-poly1305
-    password: usersecret
+    password: userdefsecret
     server: cloudprovider
     port: 443
     udp_over_tcp: true
@@ -220,13 +221,13 @@ proxies:
       tls: true
       skip-cert-verify: true
       host: proxyproviderip
-      path: /usersecret/v2ray/
-      
+      path: /BASE_PATH/v2ray/
+
   - name: CDN old_vmess_proxyproviderip_vmess_18831
     type: vmess
     server: cloudprovider
     port: 443
-    uuid: userguidsecret
+    uuid: userdefguidsecret
     alterId: 0
     cipher: chacha20-poly1305
     udp: true
@@ -235,7 +236,7 @@ proxies:
     servername: proxyproviderip
     network: ws
     ws-opts:
-      path: /usersecret/vmess/
+      path: /BASE_PATH/vmess/
 
 proxy-groups:
   - name: auto

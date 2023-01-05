@@ -73,6 +73,7 @@ function check_for_env() {
 
         random_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
         replace_empty_env USER_SECRET "setting 32 char user secret" $random_secret "^([0-9A-Fa-f]{32})$"
+        replace_empty_env BASE_PROXY_PATH "setting 32 char for proxy path" $random_secret ".*"
 
 
         random_admin_secret=$(hexdump -vn16 -e'4/4 "%08x" 1 "\n"' /dev/urandom)
@@ -142,7 +143,10 @@ function replace_empty_env() {
 function main(){
         set_env_if_empty config.env.default
         set_env_if_empty config.env
-        
+
+        if [[ "$BASE_PROXY_PATH" == "" ]]; then
+                replace_empty_env BASE_PROXY_PATH "" $USER_SECRET ".*"
+        fi
 
         cd /opt/$GITHUB_REPOSITORY
         git pull
@@ -165,6 +169,8 @@ function main(){
                 echo "Please open the following link in the browser for client setup"
                 cat nginx/use-link
         fi
+
+        bash status.sh
         systemctl restart hiddify-admin.service
 }
 

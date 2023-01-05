@@ -1,5 +1,5 @@
 server {
-	listen 80 ;
+	listen 81 ;
 	include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
 	include /opt/GITHUB_REPOSITORY/nginx/def-link.conf;
 
@@ -12,7 +12,7 @@ log_format proxy '[$time_local] $proxy_protocol_addr '
                  '$upstream_addr $status $bytes_sent $request_length $request_time';
 server {
 
-	listen 80;
+	listen 81;
 	server_name defaultserverhost;
   	include /opt/GITHUB_REPOSITORY/nginx/common.conf;
 	include /opt/GITHUB_REPOSITORY/nginx/admin-link.conf;
