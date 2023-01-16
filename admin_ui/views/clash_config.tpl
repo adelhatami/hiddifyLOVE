@@ -12,6 +12,9 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   listen: 127.0.0.1:6868
+  fake-ip-filter:
+     - 'proxyproviderip'
+     - '{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}}'
   default-nameserver:
 % if data["meta_or_normal"]=='meta':
     - https://1.1.1.1/dns-query#PROXY
@@ -22,9 +25,14 @@ dns:
     - 8.8.8.8
     - 1.0.0.1
   nameserver:
+#    - https://proxyproviderip/BASE_PATH/dns/dns-query
+% if data["meta_or_normal"]=='meta':
     - https://1.1.1.1/dns-query#PROXY
     - https://8.8.8.8/dns-query#PROXY
     - https://1.0.0.1/dns-query#PROXY
+% end
+    - 8.8.8.8
+    - 1.1.1.1
 
 proxy-groups:
   - name: auto_all
@@ -75,19 +83,19 @@ proxy-groups:
   - name: OnProxyIssue
     proxies:
     % if data["mode"]=="all":
-      - PROXY
+      - REJECT
       - DIRECT
     % else:
       - DIRECT
-      - PROXY
+      - REJECT
     % end
     type: select
 
 proxy-providers:
   all_proxies:
     type: http
-    url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml?3"
-    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies3.yaml
+    url: "https://proxyproviderip/{{data["BASE_PROXY_PATH"]}}/{{data["user_id"]}}/clash/{{data["meta_or_normal"]}}/proxies.yml?{{hash(f'{data}')}}"
+    path: proxyproviderip/{{data["user_id"]}}-{{data["meta_or_normal"]}}-proxies{{hash(f'{data}')}}.yaml
     health-check:
       enable: true
       interval: 600
@@ -125,12 +133,14 @@ rule-providers:
     interval: 432000   
 
 rules:
+  - DOMAIN,{{data["TELEGRAM_FAKE_TLS_DOMAIN"]}},DIRECT
+  - DOMAIN,proxyproviderip,DIRECT
+  - IP-CIDR,{{data["external_ip"]}}/32,DIRECT
   - IP-CIDR,10.10.34.0/24,PROXY
   - RULE-SET,tmpblocked,PROXY
   - RULE-SET,blocked,PROXY
   - GEOIP,IR,OnIranSites
   - DOMAIN-SUFFIX,.ir,OnIranSites
-  - DOMAIN,faketlsdomain,OnIranSites
   - RULE-SET,open,OnIranSites
   - RULE-SET,ads,REJECT
   - MATCH,OnNotFilteredSites

@@ -1,18 +1,18 @@
-location ~* "xxx/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/clash/(?<path>.*)" {
-  set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
-  set $usersecret "$guid1$guid2$guid3$guid4$guid5";
-  proxy_pass http://localhost:439/user/$usersecret/$path; 
-	error_page 301 302 307 = @handle_redirect;
+# location ~* "xxx/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/clash/(?<path>.*)" {
+#   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
+#   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
+#   proxy_pass http://localhost:439/user/$usersecret/$path; 
+# 	error_page 301 302 307 = @handle_redirect;
 
-  # alias /opt/GITHUB_REPOSITORY/clash/$path;
-  # types { }   default_type "text/plain";
+#   # alias /opt/GITHUB_REPOSITORY/clash/$path;
+#   # types { }   default_type "text/plain";
 
-  sub_filter_types text/plain;
-  include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
-  sub_filter usersecret $usersecret;
-  sub_filter userguidsecret $guid;
-  sub_filter_once off;
-}
+#   sub_filter_types text/plain;
+#   include /opt/GITHUB_REPOSITORY/nginx/replace.conf;
+#   sub_filter usersecret $usersecret;
+#   sub_filter userguidsecret $guid;
+#   sub_filter_once off;
+# }
 location ~* "/BASE_PROXY_PATH/(?<guid1>\w{8})[\-]?(?<guid2>\w{4})[\-]?(?<guid3>\w{4})[\-]?(?<guid4>\w{4})[\-]?(?<guid5>\w{12})/(?<path>.*)" {
   set $guid "$guid1-$guid2-$guid3-$guid4-$guid5";
   set $usersecret "$guid1$guid2$guid3$guid4$guid5";
@@ -127,8 +127,12 @@ location /BASE_PROXY_PATH/speedtest/ {
   proxy_pass          http://localhost:438/;
 }
 location /BASE_PROXY_PATH/ { #for help
+  proxy_set_header Host $host;  
   proxy_pass http://127.0.0.1:80/BASE_PROXY_PATH/BASE_PROXY_PATH/;
-
+  # proxy_intercept_errors on;
+	# error_page 301 302 307 = @handle_redirect;
+	
+  # return 302 /BASE_PROXY_PATH/BASE_PROXY_PATH/;
 }
 #}
 

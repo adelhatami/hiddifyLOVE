@@ -5,10 +5,11 @@ config_dir=pathlib.Path(__file__).parent.parent.resolve()
 dirname = pathlib.Path(__file__).parent.resolve()
 conf_vars={
         "MAIN_DOMAIN":"domain", 
-        "NO_CDN_DOMAIN":"domain", 
+        # "NO_CDN_DOMAIN":"domain", 
         "USER_SECRET":"uuid",
         "ADMIN_SECRET":"uuid",
-        "CDN_NAME":"string",
+        "FAKE_CDN_DOMAIN":"domain", 
+        # "CDN_NAME":"string",
         "TELEGRAM_FAKE_TLS_DOMAIN":"domain",
         "SS_FAKE_TLS_DOMAIN":"domain",
         "ENABLE_FIREWALL":"boolean",

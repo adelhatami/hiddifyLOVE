@@ -115,7 +115,7 @@
                                 <h5>مهم: نرم افزار هایدیفای پروکسی را به نسخه 0.7 آپدیت کنید</h5>
                             </div>
                             <div class="btn-group">
-                                <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta/alpha-universal-release.apk"
+                                <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.7/hiddify-2.5.13-pre04-h0.7-meta-alpha-universal-release.apk"
                                     class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
                             </div>
                             <div class="alert alert-info">
@@ -216,6 +216,7 @@
                                     </div>
                                 </details>
                             </div>
+                            % if data["BLOCK_IR_SITES"]=='false':
                             <div class="alert alert-warning">
                                 <h5>
                                     گذرنده همه سایت‌ها
@@ -242,7 +243,7 @@
                                     </div>
                                 </details>
                             </div>
-
+                            % end
                             <!--
                                 ابندا یکی از لینک تنظیمات کلش را کپی کنید و در بخش 2 مرحله 4 قرار دهید و مراحل را مطابق
                                 گیف
@@ -311,7 +312,7 @@
                             </div>
                             % if data["ENABLE_VMESS"]=='true':
                             <div class="btn-group">
-                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}'
                                     class="btn btn-primary orig-link"> CDN vmess+ws</a>
                             </div>
                             % end
@@ -364,9 +365,9 @@
 
                             <br />
                             <div class="btn-group">
-                                <a href="speedtest/?test=upload" class="btn btn-primary">تست آپلود</a>
-                                <a href="speedtest/?test=download" class="btn btn-primary">تست دانلود</a>
-                                <a href="speedtest/?run" class="btn btn-primary">تست کامل</a>
+                                <a href="/BASE_PATH/speedtest/?test=upload" class="btn btn-primary">تست آپلود</a>
+                                <a href="/BASE_PATH/speedtest/?test=download" class="btn btn-primary">تست دانلود</a>
+                                <a href="/BASE_PATH/speedtest/?run" class="btn btn-primary">تست کامل</a>
                             </div>
                         </div>
                     </details>
@@ -463,6 +464,7 @@
                                         class="btn btn-primary orig-link">نصب گذرنده برای سایت‌های خارجی</a>
                                 </div>
                             </div>
+                            % if data["BLOCK_IR_SITES"]=='false':
                             <div class="alert alert-warning">
                                 <h5>
                                     گذرنده همه سایت‌ها
@@ -482,6 +484,7 @@
                                         class="btn btn-primary orig-link">نصب گذرنده برای همه سایت‌ها</a>
                                 </div>
                             </div>
+                            % end
                             <h2>
                                 کار با کلش ویندوز، مک و لینوکس
                             </h2>
@@ -544,7 +547,7 @@
                                 <details>
                                     <summary>اندروید</summary>
                                     <div class="btn-group">
-                                        <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.6/hiddify-2.5.13-pre04-h0.6-meta/alpha-universal-release.apk"
+                                        <a href="/BASE_PATH/gh/hiddify/HiddifyProxyAndroid/releases/download/v0.7/hiddify-2.5.13-pre04-h0.7-meta-alpha-universal-release.apk"
                                             class="btn btn-primary orig-link">دانلود نرم افزار HiddifyProxy</a>
                                     </div>
 
@@ -598,9 +601,25 @@
                             سپس روی یکی از دکمه‌های زیر (به دلخواه) کلیک کنید تا لینک با اپ هایدیفای باز شود. سپس در
                             نرم افزار HiddifyProxy با زدن روی دکمه YES درخواست وارد کردن لینک را تایید کنید.
                             <br />
-                            <details>
-                                <summary>تنظیمات تکی</summary>
-
+                            <details class="accordion">
+                                <summary class="card-header">تنظیمات تکی</summary>
+                                % if data["FAKE_CDN_DOMAIN"]!='':
+                                <h5>تنظیمات با پشتیبانی FakeCDN</h5>
+                                <div class="btn-group">
+                                    <a href='vless://userguidsecret@data["FAKE_CDN_DOMAIN"]:443?security=tls&sni=data["FAKE_CDN_DOMAIN"]&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Fvlessws#FakeCDNvless_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link">FakeCDN vless+ws</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href='trojan://userguidsecret@data["FAKE_CDN_DOMAIN"]:443?security=tls&sni=data["FAKE_CDN_DOMAIN"]&type=ws&host=proxyproviderip&path=%2FBASE_PATH%2Ftrojanws#FakeCDNtrojan_ws_proxyproviderip'
+                                        class="btn btn-primary orig-link">FakeCDN trojan+ws</a>
+                                </div>
+                                    % if data["ENABLE_VMESS"]=='true':
+                                    <div class="btn-group">
+                                        <a href='vmess://{"v":"2", "ps":"FakeCDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"proxyproviderip", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"data["FAKE_CDN_DOMAIN"]"}'
+                                            class="btn btn-primary orig-link">FakeCDN vmess+ws</a>
+                                    </div>
+                                    % end
+                                % end
                                 <h5>تنظیمات با پشتیبانی CDN</h5>
                                 <div class="btn-group">
                                     <a href='vless://userguidsecret@cloudprovider:443?security=tls&alpn=h2&sni=proxyproviderip&type=ws&path=%2Fusersecret%2Fvlessws#CDNvless_ws_proxyproviderip'
@@ -612,7 +631,7 @@
                                 </div>
                                 % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"CDNvmess_ws_proxyproviderip", "add":"cloudprovider", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}'
                                         class="btn btn-primary orig-link"> CDN vmess+ws</a>
                                 </div>
                                 % end
@@ -627,7 +646,7 @@
                                 </div>
                                 % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"vmess_ws_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"ws", "type":"none", "host":"", "path":"/BASE_PATH/vmessws", "tls":"tls", "sni":"proxyproviderip"}'
                                         class="btn btn-primary orig-link"> vmess+ws</a>
                                 </div>
                                 % end
@@ -645,7 +664,7 @@
                                 </div>
                                 % if data["ENABLE_VMESS"]=='true':
                                 <div class="btn-group">
-                                    <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip", "alpn":"h2"}'
+                                    <a href='vmess://{"v":"2", "ps":"vmess_grpc_proxyproviderip", "add":"serverip", "port":"443", "id":"userguidsecret", "aid":"0", "scy":"auto", "net":"grpc", "type":"multi", "host":"", "path":"usersecret-vmgrpc", "tls":"tls", "sni":"proxyproviderip"}'
                                         class="btn btn-primary orig-link">vmess+grpc</a>
                                 </div>
                                 % end
@@ -714,7 +733,7 @@
                             کافی است در مرورگر خود عبارت زیر را وارد کنید:
 
                             <pre dir="ltr">
-https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
+https://proxyproviderip/BASE_PATH/dns/dns-query
                     </pre>
                             <div dir="ltr">
                                 <h4>Configure DoH on your browser</h4>
@@ -816,9 +835,9 @@ https://proxyproviderip/BASE_PATH/dns/dns-query{?dns}
         cloudprovid = document.location.host;
 
         function replace_info(str) {
-            str = str.replaceAll('usersecret', secret);
-            str = str.replaceAll('proxyproviderip', host);
-            str = str.replaceAll('cloudprovider', cloudprovid);
+            // str = str.replaceAll('usersecret', secret);
+            // str = str.replaceAll('proxyproviderip', host);
+            // str = str.replaceAll('cloudprovider', cloudprovid);
 
             if (str.includes('vmess://')) {
                 splt = str.split('vmess://')
