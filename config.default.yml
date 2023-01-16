@@ -4,13 +4,6 @@
 # modify only config.env file. you can override the variables here in config.env 
 
 global:
-  # list of ports for tls entry point
-  tls_ports: 
-    - 443
-
-  # list of ports for http entry point (port 80 is mandatory)
-  http_ports: 
-    - 80
 
   # fake site when someone without proxy wants to use this proxy
   decoy_site: https://www.google.com/
@@ -39,6 +32,9 @@ global:
 
   # disable ipv6
   only_ipv4: true
+  
+  custom_cdn_server: ""
+  custom_cdn_sni: ""
 
 
 # admin secret will be changed to random if it contains "0000000000000000000000000000000"
@@ -60,13 +56,9 @@ users:
     # expire time (monthly bandwith will be reset every 30 days before expiry time)
     expiry_time: "2023/02/10"
 
-
-
-
 domains:
    # should be unique
-   - test.hiddify.com:
-        cdn: true
+   - test.hiddify.com        
 
 
 telegram:
@@ -92,14 +84,31 @@ ss_faketls:
   # demonestrate fake_tls_domain for preventing probing, should be unique
   fake_tls_domain: www.google.com
     
+xray:
+  enable: true
+  # list of ports for tls entry point
+  tls_ports: 
+    - 443
 
-# list all configs to be disabled. It will check if the name contains tag
-disabled_xray_configs:
-  #  - grpc
-  #  - ws
-  #  - trojan
-  #  - vmess
-  #  - vmess_grpc
+  # list of ports for http entry point (port 80 is mandatory)
+  http_ports: 
+    - 80
+
+  configs:
+     transport:
+       kcp: false
+       http: false
+       grpc: true
+       ws: true
+       
+     protocols:
+       vmess: true
+       trojan: true
+       vless: true
+
+
+
+
 
 github:
    user: hiddify
